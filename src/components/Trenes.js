@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import data from "../data/data.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
-
+import ReactDOM from 'react-dom'
+import { Route, Routes } from 'react-router-dom'
+import Idas from './Idas';
+import { BrowserRouter } from 'react-router-dom'
 import Modal from "./Modal";
 function Trenes() {
   const [open, setOpen] = useState(false);
@@ -42,10 +45,13 @@ function Trenes() {
   return (
     <>
       <div className="m-3 p-3 min-h-[300px]  shadow-md bg-gray-100 rounded-lg  border-indigo-500 flex flex-col">
-        <h1 className="text-2xl font-bold ">Filtrado</h1>
+        <h1 className="  text-2xl font-bold ">Filtrado</h1>
         <div>
+
           <select
-            className="bg-gray-50 
+
+            className="
+            bg-gray-50 
             border-2
              border-gray-300
               text-gray-900 text-sm rounded-lg focus:border-indigo-700 block w-full p-2.5"
@@ -62,7 +68,7 @@ function Trenes() {
             <option value="MD">MD</option>
             <option value="REG.EXP.">REG.EXP.</option>
           </select>
-   
+
         </div>
       </div>
       <h2 className="p-3 flex justify-end text-lg">
@@ -149,12 +155,10 @@ function Trenes() {
         <div className="text-center w-[400px]  flex flex-col justify-between">
           <div className="mx-auto my-4">
             <h3 className="text-lg font-black text-gray-800">
-              Reservar esta selección?
+   
             </h3>
 
-            <p className="text-sm text-gray-500">
-              Te gustaría reservar este billete?
-            </p>
+           
             <div className="text-sm  font-bold flex flex-col p-3">
               <span className="text-indigo-700">
                 {" "}
