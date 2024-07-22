@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-import data from "../data/data.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
-import ReactDOM from 'react-dom'
-import { Route, Routes } from 'react-router-dom'
-import Idas from './Idas';
-import { BrowserRouter } from 'react-router-dom'
+import Filtrado from "./Filtrado";
 import Modal from "./Modal";
-function Trenes() {
+import { useNavigate } from 'react-router-dom';
+
+function Trenes({txt, datos, insideIdas, idaR}) {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [idas, SetIdas] = useState([]);
   const [ida, setIda] = useState([]);
+  const [vuelta, setVuelta] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [vueltas, SeVueltas] = useState([]);
-
+  const navigate = useNavigate();
+  const [reserva, setReserva] = useState([]);
   useEffect(() => {
-    SetIdas(data.idas);
-    SeVueltas(data.vueltas);
-    setFilter(idas);
-  }, [idas, vueltas]);
+
+    setFilter(datos);
+  }, [datos]);
   function duration(e) {
     let hours = Math.floor(e / 60);
     let minutes = e % 60;
@@ -27,55 +24,50 @@ function Trenes() {
   }
   function seleccion(e) {
     setOpen((prev) => true);
-    setIda((prev) => e);
-    setIda((prev) => ({
-      ...prev,
-      arrivalStationName: e.arrivalStationName.toString().toLowerCase(),
-      departureStationName: e.departureStationName.toString().toLowerCase(),
-    }));
+    if(insideIdas){
+      setIda((prev) => e);
+      setIda((prev) => ({
+        ...prev,
+        arrivalStationName: e.arrivalStationName.toString().toLowerCase(),
+        departureStationName: e.departureStationName.toString().toLowerCase(),
+      }));
+    }else{
+
+      setVuelta((prev) => e);      
+     
+    }
+
+  
   }
   const Filter = (e) => {
-    console.log(e.target.value);
-
     setFilter(
-      idas.filter((f) => f.segments[0].companyName.includes(e.target.value))
+      datos.filter((f) => f.segments[0].companyName.includes(e.target.value))
     );
   };
+function reservar(){
+  if(insideIdas){
+
+    navigate('/vueltas', {state:ida})   
+
+  }else{
+    reserva.push(idaR)
+    reserva.push(vuelta)
+    navigate('/reserva', {state:reserva}) 
+  }
+
+
+}
 
   return (
     <>
-      <div className="m-3 p-3 min-h-[300px]  shadow-md bg-gray-100 rounded-lg  border-indigo-500 flex flex-col">
-        <h1 className="  text-2xl font-bold ">Filtrado</h1>
-        <div>
 
-          <select
+    <Filtrado onChange={Filter} />
 
-            className="
-            bg-gray-50 
-            border-2
-             border-gray-300
-              text-gray-900 text-sm rounded-lg focus:border-indigo-700 block w-full p-2.5"
-            id="compName"
-            name="compName"
-            onChange={Filter}
-          >
-            <option value="">Elige tu carrier</option>
-            <option value="AVLO">AVLO</option>
-            <option value="AVE">Ave</option>
-            <option value="AVE INT">AVE INT</option>
-            <option value="EUROMED">EUROMED</option>
-            <option value="Intercit">Intercit</option>
-            <option value="MD">MD</option>
-            <option value="REG.EXP.">REG.EXP.</option>
-          </select>
-
-        </div>
-      </div>
       <h2 className="p-3 flex justify-end text-lg">
         Mostrando {filter.length} resultados
       </h2>
       <div className="gap-3 grid grid-cols-2  p-3">
-        {filter.map((ida) => (
+        {filter.map((tren) => (
           <div
             className="
             group 
@@ -97,35 +89,35 @@ function Trenes() {
             font-bold
             text-gray-400
         "
-            key={ida.id}
+            key={tren.id}
           >
             <div className="flex justify-between">
               <div className="text-black group-hover:text-white">
-                {ida.options[0].name}
+                {tren.options[0].name}
               </div>
               <div className="flex gap-1">
                 <div
                   className={
-                    ida.stops === 0
+                    tren.stops === 0
                       ? " text-sm  bg-green-700 rounded text-white p-1 "
                       : " text-sm  bg-orange-400 rounded text-white p-1"
                   }
                 >
-                  {ida.stops} parada{ida.stops < 1 && "s"}
+                  {tren.stops} parada{tren.stops < 1 && "s"}
                 </div>
                 <div className=" text-sm bg-red-400 rounded text-white p-1 ">
-                  {ida.segments[0].companyName}
+                  {tren.segments[0].companyName}
                 </div>
                 <div className=" text-sm bg-indigo-500 rounded text-white p-1 ">
-                  {ida.price}€
+                  {tren.price}€
                 </div>
               </div>
             </div>
 
             <div className="border-l-2 border-gray-400 group-hover:border-white pl-2">
-              <div className="text-sm">{ida.departureStationName}</div>
-              <div className="text-sm">{duration(ida.duration)} </div>
-              <div className="text-sm">{ida.arrivalStationName}</div>
+              <div className="text-sm">{tren.departureStationName}</div>
+              <div className="text-sm">{duration(tren.duration)} </div>
+              <div className="text-sm">{tren.arrivalStationName}</div>
             </div>
 
             <div className="flex justify-between py-4">
@@ -137,14 +129,14 @@ function Trenes() {
                   Detalles
                 </button>
                 <button
-                  onClick={() => seleccion(ida)}
+                  onClick={() => seleccion(tren)}
                   className=" bg-green-500 text-white py-2 px-4   rounded"
                 >
                   Seleccionar
                 </button>
               </div>
               <div className="flex justify-center items-center">
-                <img className="h-5" src={ida.carrier[0].logo} alt="logo" />
+                <img className="h-5" src={tren.carrier[0].logo} alt="logo" />
               </div>
             </div>
           </div>
@@ -155,19 +147,21 @@ function Trenes() {
         <div className="text-center w-[400px]  flex flex-col justify-between">
           <div className="mx-auto my-4">
             <h3 className="text-lg font-black text-gray-800">
-   
+              Reserva {txt}
             </h3>
 
            
             <div className="text-sm  font-bold flex flex-col p-3">
               <span className="text-indigo-700">
-                {" "}
-                {ida.departureStationName}
+                {insideIdas ? ida.departureStationName : vuelta.departureStationName}
+                
               </span>
               <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-              {/*               <span className="text-indigo-500 "> {duration(ida.duration)}</span>
-              <FontAwesomeIcon className="text-indigo-400" icon={faArrowDown} /> */}
-              <span className="text-indigo-300"> {ida.arrivalStationName}</span>
+         
+              <span className="text-indigo-300"> 
+              {insideIdas ? ida.arrivalStationName : vuelta.arrivalStationName}
+                
+                </span>
             </div>
           </div>
           <div className="flex gap-4 justify-center">
@@ -177,8 +171,8 @@ function Trenes() {
             >
               Cancel
             </button>
-            <button class="bg-green-500 text-white py-2 px-4   rounded">
-              Reservar
+            <button className="bg-indigo-500 text-white py-2 px-4 rounded" onClick={reservar} >
+              Seleccionar
             </button>
           </div>
         </div>
@@ -197,7 +191,7 @@ function Trenes() {
             >
               Cancel
             </button>
-            <button class="bg-green-500 text-white py-2 px-4   rounded">
+            <button className="bg-green-500 text-white py-2 px-4   rounded">
               Reservar
             </button>
           </div>
