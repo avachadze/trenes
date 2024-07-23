@@ -11,6 +11,7 @@ function Filtrado({ onChange }) {
                 <select
 
                     className="
+                    
                     bg-gray-50 
                     border-2
                     border-gray-300
@@ -28,7 +29,10 @@ function Filtrado({ onChange }) {
                     <option value="MD">MD</option>
                     <option value="REG.EXP.">REG.EXP.</option>
                 </select>
-
+                <label
+                >
+                    <input  type="checkbox" class="rounded text-indigo-500" /> Sin paradas
+                </label>
             </div>
         </div>
 

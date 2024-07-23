@@ -1,6 +1,9 @@
 import React from 'react'
 
 function Tren(tren) {
+    let arrival = tren.tren.arrivalTime
+    let departure = tren.tren.departureTime
+
     function duration(e) {
         let hours = Math.floor(e / 60);
         let minutes = e % 60;
@@ -55,11 +58,13 @@ function Tren(tren) {
 
 
                 </div>
-                <div className="border-l-2 border-gray-400 group-hover:border-white pl-2">
+                <div className="border-l-2 border-gray-400 group-hover:border-white pl-2 mb-3">
                     <div className="text-sm">{tren.tren.departureStationName}</div>
                     <div className="text-sm">{duration(tren.tren.duration)} </div>
                     <div className="text-sm">{tren.tren.arrivalStationName}</div>
                 </div>
+                <span className='text-sm text-orange-500'>Salida: {departure.slice(-5)} </span>
+                <span className='text-sm text-indigo-600'>Llegada: {arrival.slice(-5)}</span>
                 <div>
 
                 </div>
