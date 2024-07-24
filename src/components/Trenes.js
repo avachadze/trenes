@@ -12,8 +12,9 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   const [vuelta, setVuelta] = useState([]);
   const [filter, setFilter] = useState([]);
   const navigate = useNavigate();
-  const [reserva, setReserva] = useState([]);
-  const[pasajeros, setPasajeros] = useState();
+  const [reserva] = useState([]);
+  const [pasajeros, setPasajeros] = useState();
+
   useEffect(() => {
 
     setFilter(datos);
@@ -32,7 +33,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   function datosSeleccion(e) {
     setModal((prev) => true);
     setSeleccionado(e)
-
   }
 
   function setSeleccionado(e) {
@@ -56,19 +56,26 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         departureStationName: e.departureStationName.toString().toLowerCase(),
         arrivalTime: e.arrivalTime.slice(-5),
         departureTime: e.departureTime.slice(-5),
-
       }));
-
- 
     }
     setPasajeros(e.searchSummary.totalPassengers)
-
   }
 
-
+  function checkIfStops(e, f) {
+    if (e.target.checked && f.stops === 0) {
+      return true
+    } else if (!e.target.checked) {
+      return true
+    }
+  }
   const Filter = (e) => {
+
     setFilter(
-      datos.filter((f) => f.segments[0].companyName.includes(e.target.value))
+      datos.filter((f) =>
+
+        f.segments[0].companyName.includes(e.target.value) ||
+        checkIfStops(e, f)
+      )
     );
   };
   function reservar() {
@@ -81,8 +88,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
       reserva.push(vuelta)
       navigate('/reserva', { state: reserva })
     }
-
-
   }
 
   return (

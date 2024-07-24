@@ -1,6 +1,5 @@
 export default function Modal({ open, onClose, children }) {
   return (
-    // backdrop
     <div
       onClick={onClose}
       className={`
@@ -8,7 +7,6 @@ export default function Modal({ open, onClose, children }) {
         ${open ? "visible bg-black/20" : "invisible"}
       `}
     >
-      {/* modal */}
       <div
         onClick={(e) => e.stopPropagation()}
         className={`

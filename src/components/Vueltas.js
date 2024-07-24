@@ -5,16 +5,13 @@ import { useLocation } from 'react-router-dom';
 function Vueltas() {
   const [datos, setDatos] = useState([]);
   const { state } = useLocation();
-  const idaReserva = state;
- 
+  console.log(state)
   useEffect(() => {
     setDatos(data.vueltas);
-
   }, []);
 
   return <div>
-
-    <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR ={state} />
+    <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR={state} />
   </div>;
 }
 
