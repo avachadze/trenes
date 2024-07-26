@@ -4,21 +4,28 @@ import Tren from './Tren';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsLeftRight } from '@fortawesome/free-solid-svg-icons';
 import DatosReserva from './DatosReserva';
+import { useNavigate } from 'react-router-dom';
 
 function Reserva() {
     const { state } = useLocation();
     const [precio, setPrecio] = useState(state[0].price + state[1].price)
     const pasajeros = state[0].searchSummary.totalPassengers;
     const [precioPorPersona, setPrecioPorPersona] = useState(precio / pasajeros);
+    const navigate = useNavigate();
     const [total, setTotal] = useState();
     function handleSubmit(e) {
-        console.log("afaef");
-        e.preventDefault();
-        const formElement = document.getElementById('formulario');
-        const formData = new FormData(formElement);
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        });
+        e.preventDefault()
+        var formData = new FormData(document.getElementById("formulario"));
+        var nombres = formData.getAll("nombre");
+        var apellidos = formData.getAll("apellido");
+        var DNI = formData.getAll("DNI");
+        const datos = [];
+          for (var pair of formData.entries()) {
+            datos.push( pair[0], pair[1]);
+              console.log(pair[0] + ', ' + pair[1]);
+          }
+        navigate('/datos', { state: datos})
+
 
     }
     useEffect(() => {
@@ -26,6 +33,7 @@ function Reserva() {
         setPrecio(prev => Math.round(prev * 100) / 100)
         setTotal(prev => Math.round(prev * 100) / 100)
     }, [precio, total, precioPorPersona, pasajeros]);
+
     return (
         <div className='px-10 pt-10 flex justify-center flex-col  min-h-[80vh]'>
             <div className=' py-10 grid sm:grid-cols-12  gap-4 content-between border-y-2 border-dashed  border-gray-200'>
@@ -47,18 +55,17 @@ function Reserva() {
             </div>
             <div>
                 <form id='formulario' onSubmit={handleSubmit} className='mt-3 grid justify-between sm:grid-cols-12 gap-4'>
+
                     {Array.from(
                         { length: pasajeros },
                         (_, i) =>
                             <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
                     )}
-                    <button>
-                        envio
-                    </button>
+
+                    <div className='py-10 flex sm:justify-start col-span-12 justify-end '>
+                        <button className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2 cursor-pointer'> TOTAL: {precio}€</button>
+                    </div>
                 </form>
-            </div>
-            <div className='py-10 flex sm:justify-start justify-end'>
-                <span className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2 cursor-pointer'> TOTAL: {precio}€</span>
             </div>
         </div>
     )

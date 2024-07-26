@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Vueltas from './Vueltas'
 import Idas from './Idas'
 import Reserva from './Reserva'
+import DatosFinal from './DatosFinal'
 function Header() {
 
     return (
@@ -16,6 +17,8 @@ function Header() {
                 <Route index element={<Idas />}></Route>
                 <Route path='vueltas' element={<Vueltas />}></Route>
                 <Route path='reserva' element={<Reserva />}></Route>
+                <Route path='datos' element={<DatosFinal />}></Route>
+
             </Routes>
 
         </BrowserRouter>

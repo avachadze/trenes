@@ -159,7 +159,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 </div>
               </div>
             </div>
-
+         
             <div className="border-l-2 border-gray-400 group-hover:border-white pl-2">
               <div className="text-sm">{tren.departureStationName}</div>
               <div className="text-sm">{duration(tren.duration)} </div>
@@ -225,7 +225,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         </div>
       </Modal>
       {/* Modal de más detalles */}
-      <Modal  open={modal} onClose={() => setModal(false)}>
+      <Modal open={modal} onClose={() => setModal(false)}>
         <div className="text-center  w-[400px]  flex flex-col justify-between">
           <div className="mx-auto my-4">
             <h3 className="text-lg font-black text-gray-800">

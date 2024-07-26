@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import Slider from 'react-slider'
 
-function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX  }) {
-
+function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
 
     return (
 
