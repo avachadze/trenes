@@ -11,17 +11,24 @@ function Reserva() {
     const pasajeros = state[0].searchSummary.totalPassengers;
     const [precioPorPersona, setPrecioPorPersona] = useState(precio / pasajeros);
     const [total, setTotal] = useState();
+    function handleSubmit(e) {
+        console.log("afaef");
+        e.preventDefault();
+        const formElement = document.getElementById('formulario');
+        const formData = new FormData(formElement);
+        formData.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
 
-
+    }
     useEffect(() => {
         setTotal(precioPorPersona * pasajeros);
         setPrecio(prev => Math.round(prev * 100) / 100)
         setTotal(prev => Math.round(prev * 100) / 100)
     }, [precio, total, precioPorPersona, pasajeros]);
     return (
-
-        <div className='sm:px-32 flex justify-center flex-col p-10 min-h-[80vh]'>
-            <div className=' pb-10 grid sm:grid-cols-12  gap-4 content-between border-b-2 border-gray-200'>
+        <div className='px-10 pt-10 flex justify-center flex-col  min-h-[80vh]'>
+            <div className=' py-10 grid sm:grid-cols-12  gap-4 content-between border-y-2 border-dashed  border-gray-200'>
                 <div className='relative sm:col-span-5'>
                     <Tren tren={state[0]} />
                 </div>
@@ -39,19 +46,21 @@ function Reserva() {
                 </div>
             </div>
             <div>
-            
-                {Array.from(
-                    { length: pasajeros },
-                    (_, i) =>
-                        <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
-                )}
+                <form id='formulario' onSubmit={handleSubmit} className='mt-3 grid justify-between sm:grid-cols-12 gap-4'>
+                    {Array.from(
+                        { length: pasajeros },
+                        (_, i) =>
+                            <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
+                    )}
+                    <button>
+                        envio
+                    </button>
+                </form>
             </div>
-            <div className='py-10'>
-                <span className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2'> TOTAL: {precio}€</span>
+            <div className='py-10 flex sm:justify-start justify-end'>
+                <span className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2 cursor-pointer'> TOTAL: {precio}€</span>
             </div>
         </div>
-
-
     )
 }
 

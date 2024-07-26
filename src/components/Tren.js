@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Tren({tren}) {
+function Tren({ tren }) {
     let arrival = tren.arrivalTime
     let departure = tren.departureTime
-
+    let pasajeros = tren.searchSummary.totalPassengers;
     function duration(e) {
         let hours = Math.floor(e / 60);
         let minutes = e % 60;
@@ -12,7 +12,7 @@ function Tren({tren}) {
     return (
         <>
             <div
-                className="
+                className=" 
             group 
             shadow-md
             flex
@@ -40,18 +40,18 @@ function Tren({tren}) {
                     </div>
                     <div className="flex gap-1">
                         <div
-                            className={
+                            className={ 
                                 tren.stops === 0
-                                    ? " text-sm  bg-green-700 rounded text-white p-1 "
-                                    : " text-sm  bg-orange-400 rounded text-white p-1"
+                                    ? " text-sm cursor-pointer  bg-green-700 rounded text-white p-1 "
+                                    : " text-sm cursor-pointer  bg-orange-400 rounded text-white p-1"
                             }
                         >
                             {tren.stops} parada{tren.stops < 1 && "s"}
                         </div>
-                        <div className=" text-sm bg-red-400 rounded text-white p-1 ">
+                        <div className=" text-sm bg-red-400 rounded text-white p-1 cursor-pointer">
                             {tren.segments[0].companyName}
                         </div>
-                        <div className=" text-sm bg-indigo-500 rounded text-white p-1 ">
+                        <div className=" text-sm bg-indigo-500 rounded text-white p-1 cursor-pointer">
                             {tren.price}€
                         </div>
                     </div>
@@ -65,7 +65,11 @@ function Tren({tren}) {
                 </div>
                 <span className='text-sm text-orange-500'>Salida: {departure.slice(-5)} </span>
                 <span className='text-sm text-indigo-600'>Llegada: {arrival.slice(-5)}</span>
-                <div>
+                <div className="flex gap-1 justify-end">
+
+                    <div className="text-sm cursor-pointer bg-indigo-500 rounded text-white p-1 ">
+                        X{pasajeros}
+                    </div>
 
                 </div>
             </div>

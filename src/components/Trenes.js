@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import Filtrado from "./Filtrado";
 import Modal from "./Modal";
-
 import { useNavigate } from 'react-router-dom';
+
+
+
 function Trenes({ txt, datos, insideIdas, idaR }) {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -14,6 +16,14 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   const navigate = useNavigate();
   const [reserva] = useState([]);
   const [pasajeros, setPasajeros] = useState();
+  const checkParadas = document.getElementById('paradas');
+  const checkCarrier = document.getElementById('carrier');
+
+  const MIN = 0;
+  const MAX = 200;
+  const [values, setValues] = useState([MIN, MAX]);
+
+
 
   useEffect(() => {
 
@@ -44,10 +54,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         departureStationName: e.departureStationName.toString().toLowerCase(),
         arrivalTime: e.arrivalTime.slice(-5),
         departureTime: e.departureTime.slice(-5),
-
       }));
-
-
     } else {
       setVuelta((prev) => e)
       setVuelta((prev) => ({
@@ -61,22 +68,28 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
     setPasajeros(e.searchSummary.totalPassengers)
   }
 
-  function checkIfStops(e, f) {
-    if (e.target.checked && f.stops === 0) {
+  function checkIfStops(f) {
+    if (checkParadas.checked && f.stops === 0) {
       return true
-    } else if (!e.target.checked) {
+    } else if (!checkParadas.checked) {
       return true
     }
   }
-  const Filter = (e) => {
-
+  const Filter = () => {
+    console.log(checkCarrier.value)
     setFilter(
       datos.filter((f) =>
-
-        f.segments[0].companyName.includes(e.target.value) ||
-        checkIfStops(e, f)
+        f.segments[0].companyName.includes(checkCarrier.value) &&
+        checkIfStops(f) &&
+        f.price.toString().toLowerCase() >= values[0] &&
+        f.price.toString().toLowerCase() <= values[1]
       )
     );
+  };
+
+  const filtradoPrecio = (event) => {
+    setValues(event);
+    Filter();
   };
   function reservar() {
     if (insideIdas) {
@@ -91,13 +104,14 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   }
 
   return (
-    <>
+    <div className="min-h-[71vh]  my-10 sm:px-10">
 
-      <Filtrado onChange={Filter} />
+      <Filtrado onChange={Filter} filtradoPrecio={filtradoPrecio} values={values} MIN={MIN} MAX={MAX} />
 
       <h2 className="p-3 flex justify-end text-lg">
         Mostrando {filter.length} resultados
       </h2>
+      {filter.length === 0 && <span className="flex justify-center">Sin resultados.</span>}
       <div className="gap-3 grid sm:grid-cols-2  p-3">
         {filter.map((tren) => (
           <div
@@ -211,8 +225,8 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         </div>
       </Modal>
       {/* Modal de más detalles */}
-      <Modal open={modal} onClose={() => setModal(false)}>
-        <div className="text-center w-[400px]  flex flex-col justify-between">
+      <Modal  open={modal} onClose={() => setModal(false)}>
+        <div className="text-center  w-[400px]  flex flex-col justify-between">
           <div className="mx-auto my-4">
             <h3 className="text-lg font-black text-gray-800">
               Datos {txt}
@@ -232,11 +246,28 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
               </span>
             </div>
             <div className="text-sm border-t-2 border-gray-100 flex flex-col">
-
-              <span>Duracion: {insideIdas ? duration(ida.duration) : vuelta.duration}</span>
-              <span>Parada(s): {insideIdas ? ida.stops : vuelta.stops}</span>
-              <span>Salida: {insideIdas ? ida.departureTime : vuelta.departureTime} - llegada: {insideIdas ? ida.arrivalTime : vuelta.arrivalTime}</span>
-              <span>Pasajeros: {pasajeros} </span>
+              <table>
+                <tr>
+                  <th className="text-start">Duracion:</th>
+                  <td className="text-start">{insideIdas ? duration(ida.duration) : vuelta.duration}</td>
+                </tr>
+                <tr>
+                  <th className="text-start">Parada(s):</th>
+                  <td className="text-start">{insideIdas ? ida.stops : vuelta.stops}</td>
+                </tr>
+                <tr>
+                  <th className="text-start">Pasajeros:</th>
+                  <td className="text-start">{pasajeros}</td>
+                </tr>
+                <tr>
+                  <th className="text-start">Salida:</th>
+                  <td className="text-start">{insideIdas ? ida.departureTime : vuelta.departureTime} </td>
+                </tr>
+                <tr>
+                  <th className="text-start">llegada:</th>
+                  <td className="text-start"> {insideIdas ? ida.arrivalTime : vuelta.arrivalTime}</td>
+                </tr>
+              </table>
             </div>
           </div>
           <div className="flex gap-4 justify-center">
@@ -250,7 +281,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   );
 }
 

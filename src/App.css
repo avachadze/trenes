@@ -37,6 +37,7 @@
   }
 }
 .slider {
+  z-index: 0 !important;
   width: 100%;
   height: 5px;
   margin-top: 10px;
