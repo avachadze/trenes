@@ -19,12 +19,14 @@ function Reserva() {
         var nombres = formData.getAll("nombre");
         var apellidos = formData.getAll("apellido");
         var DNI = formData.getAll("DNI");
+        console.log(formData)
         const datos = [];
-          for (var pair of formData.entries()) {
-            datos.push( pair[0], pair[1]);
-              console.log(pair[0] + ', ' + pair[1]);
-          }
-        navigate('/datos', { state: datos})
+        for (var pair of formData.entries()) {
+            datos.push(pair[0], pair[1]);
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        navigate('/datos', { state: { nombres: nombres, apellidos: apellidos, DNI: DNI, length: nombres.length
+        } })
 
 
     }
