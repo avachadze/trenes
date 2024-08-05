@@ -8,7 +8,7 @@ function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
 
         <div className="m-3 p-3 pb-10  shadow-md bg-gray-100 rounded-lg  border-indigo-500 flex flex-col">
 
-            <h1 className="  text-2xl font-bold ">Filtrado</h1>
+            <h2 className="  text-2xl font-bold mb-2">Filtrado</h2>
             <div className='grid grid-cols-12'>
                 <select
                     className="

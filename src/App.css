@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -51,4 +52,26 @@
   background-color: white;
   border-radius: 50%;
   border: 2px solid rgb(88, 35, 212);
+}
+
+.tren{
+  background-image: linear-gradient(to left, #5840c2ba, #5a5cf1cc),url('assets/train.jpg');
+  background-size: cover;
+  background-position: right 0px top 500px;
+
+
+}
+h1{
+  font-size: 3rem;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
+h2,h3,h4{
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 }

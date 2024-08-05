@@ -23,12 +23,12 @@ function Reserva() {
         const datos = [];
         for (var pair of formData.entries()) {
             datos.push(pair[0], pair[1]);
-            console.log(pair[0] + ', ' + pair[1]);
         }
-        navigate('/datos', { state: { nombres: nombres, apellidos: apellidos, DNI: DNI, length: nombres.length
-        } })
-
-
+        navigate('/datos', {
+            state: {
+                nombres: nombres, apellidos: apellidos, DNI: DNI, length: nombres.length, precio: precio
+            }
+        })
     }
     useEffect(() => {
         setTotal(precioPorPersona * pasajeros);
@@ -50,24 +50,24 @@ function Reserva() {
                     <Tren tren={state[1]} />
                 </div>
             </div>
-            <div className='mt-4'>
-                <div className='flex justify-between'>
-                    <h3 className='font-semibold'> Datos personales para la reserva {pasajeros > 1 && <span className='text-sm'>({pasajeros})</span>}  </h3>
-                </div>
-            </div>
-            <div>
-                <form id='formulario' onSubmit={handleSubmit} className='mt-3 grid justify-between sm:grid-cols-12 gap-4'>
-
-                    {Array.from(
-                        { length: pasajeros },
-                        (_, i) =>
-                            <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
-                    )}
-
-                    <div className='py-10 flex sm:justify-start col-span-12 justify-end '>
-                        <button className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2 cursor-pointer'> TOTAL: {precio}€</button>
+            <div className='mt-4  rounded-lg px-5'>
+                <div className='mt-4'>
+                    <div className='flex justify-between'>
+                        <h3 className='font-semibold'> Datos personales para la reserva {pasajeros > 1 && <span className='text-sm'>({pasajeros})</span>}  </h3>
                     </div>
-                </form>
+                </div>
+                <div>
+                    <form id='formulario' onSubmit={handleSubmit} className='mt-3 grid justify-between sm:grid-cols-12 gap-4'>
+                        {Array.from(
+                            { length: pasajeros },
+                            (_, i) =>
+                                <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
+                        )}
+                        <div className='py-10 flex sm:justify-start col-span-12 justify-end '>
+                            <button className='bg-indigo-500  rounded-full text-white font-semibold shadow-md shadow-indigo-400 p-2 cursor-pointer'> TOTAL: {precio}€</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     )

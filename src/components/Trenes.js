@@ -18,12 +18,9 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   const [pasajeros, setPasajeros] = useState();
   const checkParadas = document.getElementById('paradas');
   const checkCarrier = document.getElementById('carrier');
-
   const MIN = 0;
   const MAX = 200;
   const [values, setValues] = useState([MIN, MAX]);
-
-
 
   useEffect(() => {
 
@@ -108,11 +105,12 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
 
       <Filtrado onChange={Filter} filtradoPrecio={filtradoPrecio} values={values} MIN={MIN} MAX={MAX} />
 
-      <h2 className="p-3 flex justify-end text-lg">
+      <h4 className="p-3 flex justify-end text-md">
         Mostrando {filter.length} resultados
-      </h2>
+      </h4>
       {filter.length === 0 && <span className="flex justify-center">Sin resultados.</span>}
       <div className="gap-3 grid sm:grid-cols-2  p-3">
+
         {filter.map((tren) => (
           <div
             className="
@@ -137,6 +135,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         "
             key={tren.id}
           >
+
             <div className="flex justify-between">
               <div className="text-black group-hover:text-white">
                 {tren.options[0].name}
@@ -157,9 +156,10 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 <div className=" text-sm bg-indigo-500 rounded text-white p-1 ">
                   {tren.price}€
                 </div>
+
               </div>
             </div>
-         
+
             <div className="border-l-2 border-gray-400 group-hover:border-white pl-2">
               <div className="text-sm">{tren.departureStationName}</div>
               <div className="text-sm">{duration(tren.duration)} </div>

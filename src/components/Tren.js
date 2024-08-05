@@ -40,13 +40,13 @@ function Tren({ tren }) {
                     </div>
                     <div className="flex gap-1">
                         <div
-                            className={ 
+                            className={
                                 tren.stops === 0
                                     ? " text-sm cursor-pointer  bg-green-700 rounded text-white p-1 "
                                     : " text-sm cursor-pointer  bg-orange-400 rounded text-white p-1"
                             }
                         >
-                            {tren.stops} parada{tren.stops < 1 && "s"}
+                            {tren.stops} par aaada{tren.stops < 1 && "s"}
                         </div>
                         <div className=" text-sm bg-red-400 rounded text-white p-1 cursor-pointer">
                             {tren.segments[0].companyName}
