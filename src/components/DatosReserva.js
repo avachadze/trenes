@@ -11,9 +11,10 @@ function DatosReserva({ precioPorPersona, setPrecio, precio }) {
 
     return (
         <>
-            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-3 col-span-12' name='nombre' type='text' placeholder='Nombre' />
-            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-4 col-span-12' name='apellido' type='text' placeholder='Apellido' />
-            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-3 col-span-12' name='DNI' type='text' placeholder='DNI' />
+            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-3 col-span-12' name='nombre' type='text' required placeholder='Nombre' />
+            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-4 col-span-12' name='apellido' type='text' required placeholder='Apellido' />
+            <input className='outline-none border border-transparent border-b-2 border-b-gray-300  p-2 rounded  sm:col-span-3 col-span-12' name='DNI' type='text' required placeholder='DNI' />
+           
 
 
             <div className=' flex sm:justify-end justify-start items-end  mt-5 sm:mt-0  col-span-2 gap-2'>

@@ -9,7 +9,7 @@ function Header() {
     return (
         <BrowserRouter>
             <header className=' h-[25vh] grid grid-cols-12 shadow-xl border-b-2 '>
-                <div className='tren  col-span-full flex justify-end items-center pr-10'>
+                <div className='tren  col-span-full flex justify-center sm:justify-end items-center sm:pr-10'>
                     <h1 className='text-white text-center underline decoration-wavy decoration-2 '>
                         Dit Gestion
                     </h1>

@@ -10,9 +10,9 @@ function Vueltas() {
     setDatos(data.vueltas);
   }, []);
 
-  return <div>
+  return <>
     <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR={state} />
-  </div>;
+  </>;
 }
 
 export default Vueltas;

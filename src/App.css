@@ -57,7 +57,8 @@
 .tren{
   background-image: linear-gradient(to left, #5840c2ba, #5a5cf1cc),url('assets/train.jpg');
   background-size: cover;
-  background-position: right 0px top 500px;
+  background-position: right 0px top 450px;
+  background-attachment: fixed;
 
 
 }

@@ -11,9 +11,9 @@ function Idas(props) {
   }, []);
 
   return (
-    <div>
+    <>
         <Trenes txt="ida" datos={datos} insideIdas={true} />
-    </div>
+    </>
   )
 }
 
