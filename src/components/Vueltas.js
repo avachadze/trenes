@@ -10,9 +10,11 @@ function Vueltas() {
     setDatos(data.vueltas);
   }, []);
 
-  return <>
-    <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR={state} />
-  </>;
+  return (
+    <>
+      <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR={state} />
+    </>
+  )
 }
 
-export default Vueltas;
+export default Vueltas; 

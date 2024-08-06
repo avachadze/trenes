@@ -70,9 +70,10 @@ h1{
   font-style: normal;
 }
 
-h2,h3,h4{
+h2,h3,h4,.titulo_footer{
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-weight: bold;
   font-style: normal;
 }
+/* HTML: <div class="wavy-line"></div> */

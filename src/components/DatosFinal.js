@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
+import Info from "./info/Info";
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrain, faEuroSign, faEnvelope, faFaceLaughWink } from '@fortawesome/free-solid-svg-icons';
+import { faTrain} from '@fortawesome/free-solid-svg-icons';
 function DatosFinal() {
 
     const { state } = useLocation();
     const datos = state;
     const pasajeros = [];
-    useEffect(() => {
+    /* useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
+    }, []) */
     for (let i = 0; i < datos.length; i++) {
         pasajeros.push({ nombre: datos.nombres[i], apellidos: datos.apellidos[i], DNI: datos.DNI[i] })
     }
     console.log(pasajeros)
     return (
         <div className='min-h-[70vh] p-10'>
-            <h2 className='text-lg font-bold'>Datos Reserva</h2>
-            <div className='border-b-2 border-dashed border-gray-200 grid grid-cols-12  gap-3 pb-10'>
+            <h2 className='text-lg font-bold text-center md:text-start'>Datos Reserva</h2>
+            <div className='border-y-2 border-dashed border-gray-200 grid grid-cols-12  gap-3 py-5 mt-3'>
                 {pasajeros.map((pasajero) => (
                     <div className='md:col-span-4 col-span-12 ' key={pasajero.DNI}>
-                        <div className='flex pb-5  gap-4 content-between mt-5 '>
+                        <div className='flex pb-5 flex-col items-center md:flex-row  gap-4 content-between mt-5 '>
                             <div className='h-full shadow-xl w-20 p-[25px] bg-indigo-500 text-white flex justify-center items-center rounded-3xl'>
                                 <FontAwesomeIcon className=" text-2xl" icon={faTrain} />
                             </div>
@@ -32,7 +33,7 @@ function DatosFinal() {
                 ))}
             </div>
             <section className='mt-5  border-black rounded p-5'>
-                <h3 className='text-md font-semibold'>
+                <h3 className='text-md font-semibold text-center md:text-start'>
                     Selecciona metodo de pago
                 </h3>
                 <div className='flex flex-col md:flex-row  gap-4 mt-5 items-center'>
@@ -53,26 +54,9 @@ function DatosFinal() {
                     </div>
                 </div>
             </section>
-            <section className='flex sm:flex-row flex-col  gap-5 sm:gap-0  justify-around mt-5 bg-gray-100 p-10 rounded shadow-lg  '>
-                <div className='flex flex-col  text-indigo-600'>
-                    <FontAwesomeIcon className=" text-2xl" icon={faEuroSign} />
-                    <p className='font-semibold px-16 text-center sm:px-0  text-indigo-500'>
-                        Selecciona método de págo que mejor te convenga
-                    </p>
-                </div>
-                <div className='flex flex-col  text-indigo-600'>
-                    <FontAwesomeIcon className=" text-2xl" icon={faEnvelope} />
-                    <p className='font-semibold px-16 text-center sm:px-0  text-indigo-500'>
-                        Enviamos justificante por mail para que tenga cópia
-                    </p>
-                </div>
-                <div className='flex flex-col  text-indigo-600'>
-                    <FontAwesomeIcon className=" text-2xl" icon={faFaceLaughWink} />
-                    <p className='font-semibold px-16 text-center sm:px-0  text-indigo-500'>
-                        Disfruta de tu viaje! :)
-                    </p>
-                </div>
-            </section>
+
+            <Info/>
+            
         </div>
     )
 }
