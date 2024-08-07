@@ -31,43 +31,46 @@ function Tren({ tren }) {
             hover:text-white
             rounded-lg
             font-bold
-            text-gray-400
+               dark:hover:border-indigo-700
+            dark:hover:text-slate-300
+             dark:bg-slate-800
+            text-slate-400
         "
             >
                 <div className="flex justify-between">
-                    <div className="text-black group-hover:text-white">
+                    <div className="text-black group-hover:text-white dark:text-slate-300">
                         {tren.options[0].name}
                     </div>
                     <div className="flex gap-1">
                         <div
                             className={
                                 tren.stops === 0
-                                    ? " text-sm cursor-pointer  bg-green-700 rounded text-white p-1 "
-                                    : " text-sm cursor-pointer  bg-orange-400 rounded text-white p-1"
+                                    ? " text-sm cursor-pointer  bg-green-700 dark:bg-green-900 rounded text-white p-1 "
+                                    : " text-sm cursor-pointer  bg-orange-400 dark:bg-orange-600 rounded text-white p-1"
                             }
                         >
-                            {tren.stops} par aaada{tren.stops < 1 && "s"}
+                            {tren.stops} parada{tren.stops < 1 && "s"}
                         </div>
-                        <div className=" text-sm bg-red-400 rounded text-white p-1 cursor-pointer">
+                        <div className=" text-sm bg-red-400 dark:bg-orange-600 rounded text-white p-1 cursor-pointer">
                             {tren.segments[0].companyName}
                         </div>
-                        <div className=" text-sm bg-indigo-500 rounded text-white p-1 cursor-pointer">
+                        <div className=" text-sm bg-indigo-500 dark:bg-indigo-700 rounded text-white p-1 cursor-pointer">
                             {tren.price}€
                         </div>
                     </div>
 
 
                 </div>
-                <div className="border-l-2 border-gray-400 group-hover:border-white pl-2 mb-3">
+                <div className="border-l-2 border-slate-400 group-hover:border-white pl-2 mb-3">
                     <div className="text-sm">{tren.departureStationName}</div>
                     <div className="text-sm">{duration(tren.duration)} </div>
                     <div className="text-sm">{tren.arrivalStationName}</div>
                 </div>
                 <span className='text-sm text-orange-500'>Salida: {departure.slice(-5)} </span>
-                <span className='text-sm text-indigo-600'>Llegada: {arrival.slice(-5)}</span>
+                <span className='text-sm text-indigo-600 dark:text-indigo-400'>Llegada: {arrival.slice(-5)}</span>
                 <div className="flex gap-1 justify-end">
 
-                    <div className="text-sm cursor-pointer bg-indigo-500 rounded text-white p-1 ">
+                    <div className="text-sm cursor-pointer bg-indigo-500 dark:bg-indigo-700 rounded text-white p-1 ">
                         X{pasajeros}
                     </div>
 

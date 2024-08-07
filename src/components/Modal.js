@@ -10,14 +10,14 @@ export default function Modal({ open, onClose, children }) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          bg-white rounded-xl p-6 transition-all
+          bg-white dark:bg-slate-800 rounded-xl p-6 transition-all
           border-2 border-indigo-500 shadow
           ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
         `}
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600"
+          className="absolute top-2 right-2 p-1 rounded-lg text-slate-400 bg-white hover:bg-slate-50 hover:text-slate-600"
         ></button>
         {children}
       </div>

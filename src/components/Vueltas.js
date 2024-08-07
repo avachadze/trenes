@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 function Vueltas() {
   const [datos, setDatos] = useState([]);
   const { state } = useLocation();
-  console.log(state)
+
   useEffect(() => {
     setDatos(data.vueltas);
   }, []);
