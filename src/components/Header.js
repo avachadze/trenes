@@ -1,39 +1,31 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Vueltas from './Vueltas'
 import Idas from './Idas'
 import Reserva from './Reserva'
 import DatosFinal from './DatosFinal'
 function Header() {
-
     const [isDark, setDark] = useState();
     let color = localStorage.getItem("theme");
-   
     useEffect(() => {
-        if (color === "dark"){
-       setDark(true)
-        }else{
-           
+        if (color === "dark") {
+            setDark(true)
+        } else {
             setDark(false)
-    
         }
         document.body.classList.add(color);
     }, [color]);
-
-
-
     const darkModeHandler = () => {
         if (document.body.classList.contains("dark")) {
             localStorage.setItem("theme", "light");
             document.body.classList.remove("dark");
             setDark(false);
-          } else {
+        } else {
             localStorage.setItem("theme", "dark");
             document.body.classList.add("dark");
             setDark(true);
-          }
+        }
     }
-
     return (
         <BrowserRouter>
             <header className='tren dark:bg-blend-multiply h-[25vh] grid grid-cols-12 shadow-xl '>
@@ -42,14 +34,14 @@ function Header() {
                         <h1 className='text-center text-white underline decoration-wavy decoration-2 '>
                             Dit Gestion
                         </h1>
-                            <label className="inline-flex items-center justify-end cursor-pointer md:w-full">
-                                <input onChange={() => darkModeHandler()} type="checkbox" checked={isDark ? 'checked' : ''} className="switch__input" id="Switch" />
-                                <label className="switch__label" htmlFor="Switch">
-                                    <span className="switch__indicator"></span>
-                                    <span className="switch__decoration"></span>
-                                </label>
+                        <label className="inline-flex items-center justify-end cursor-pointer md:w-full">
+                            <input onChange={() => darkModeHandler()} type="checkbox" checked={isDark ? 'checked' : ''} className="switch__input" id="Switch" />
+                            <label className="switch__label" htmlFor="Switch">
+                                <span className="switch__indicator"></span>
+                                <span className="switch__decoration"></span>
                             </label>
-                        </div>
+                        </label>
+                    </div>
                 </div>
             </header>
             <Routes>
@@ -61,5 +53,4 @@ function Header() {
         </BrowserRouter>
     )
 }
-
 export default Header

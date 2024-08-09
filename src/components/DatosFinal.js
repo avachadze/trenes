@@ -8,9 +8,9 @@ function DatosFinal() {
     const { state } = useLocation();
     const datos = state;
     const pasajeros = [];
-    /*     useEffect(() => {
+        useEffect(() => {
             window.scrollTo(0, 0);
-        }, []) */
+        }, [])
     for (let i = 0; i < datos.length; i++) {
         pasajeros.push({ nombre: datos.nombres[i], apellidos: datos.apellidos[i], DNI: datos.DNI[i] })
     }

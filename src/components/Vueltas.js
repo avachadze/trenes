@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import data from "../data/data.json";
 import Trenes from "./Trenes";
 import { useLocation } from 'react-router-dom';
 function Vueltas() {
-  const [datos, setDatos] = useState([]);
+  const datos = data.vueltas;
   const { state } = useLocation();
 
-  useEffect(() => {
-    setDatos(data.vueltas);
-  }, []);
+
 
   return (
     <>

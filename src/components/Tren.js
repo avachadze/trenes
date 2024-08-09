@@ -51,10 +51,10 @@ function Tren({ tren }) {
                         >
                             {tren.stops} parada{tren.stops < 1 && "s"}
                         </div>
-                        <div className="p-1 text-sm text-white bg-red-400 rounded cursor-pointer  dark:bg-orange-600">
+                        <div className="p-1 text-sm text-white bg-red-400 rounded cursor-pointer dark:bg-orange-600">
                             {tren.segments[0].companyName}
                         </div>
-                        <div className="p-1 text-sm text-white bg-indigo-500 rounded cursor-pointer  dark:bg-indigo-700">
+                        <div className="p-1 text-sm text-white bg-indigo-500 rounded cursor-pointer dark:bg-indigo-700">
                             {tren.price}€
                         </div>
                     </div>

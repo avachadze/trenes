@@ -5,8 +5,6 @@ import Filtrado from "./Filtrado";
 import Modal from "./Modal";
 import { useNavigate } from 'react-router-dom';
 
-
-
 function Trenes({ txt, datos, insideIdas, idaR }) {
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -22,7 +20,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   const MAX = 200;
   const [values, setValues] = useState([MIN, MAX]);
   const [parada, setParada] = useState();
-
   useEffect(() => {
     setFilter(datos);
   }, [datos]);
@@ -31,7 +28,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
     let minutes = e % 60;
     return hours + "h " + minutes + "min";
   }
-
   function seleccion(e) {
     setOpen((prev) => true);
     setSeleccionado(e)
@@ -40,7 +36,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
     setModal((prev) => true);
     setSeleccionado(e)
   }
-
   function setSeleccionado(e) {
     if (insideIdas) {
       setIda((prev) => e);
@@ -52,7 +47,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         departureTime: e.departureTime.slice(-5),
       }));
       setParada(e.segments[0].arrivalPosition.name)
-
     } else {
       setVuelta((prev) => e)
       setVuelta((prev) => ({
@@ -63,11 +57,9 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         departureTime: e.departureTime.slice(-5),
       }));
       setParada(e.segments[0].arrivalPosition.name)
-
     }
     setPasajeros(e.searchSummary.totalPassengers)
   }
-
   function checkIfStops(f) {
     if (checkParadas.checked && f.stops === 0) {
       return true
@@ -76,7 +68,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
     }
   }
   const Filter = () => {
-
     setFilter(
       datos.filter((f) =>
         f.segments[0].companyName.includes(checkCarrier.value) &&
@@ -86,34 +77,27 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
       )
     );
   };
-
   const filtradoPrecio = (event) => {
     setValues(event);
     Filter();
   };
   function reservar() {
     if (insideIdas) {
-
       navigate('/vueltas', { state: ida })
-
     } else {
       reserva.push(idaR)
       reserva.push(vuelta)
       navigate('/reserva', { state: reserva })
     }
   }
-
   return (
     <div className="min-h-[71vh]  py-10 md:px-10  dark:bg-slate-900">
-
       <Filtrado onChange={Filter} filtradoPrecio={filtradoPrecio} values={values} MIN={MIN} MAX={MAX} />
-
       <h4 className="flex justify-end p-3 text-md dark:text-slate-400">
         Mostrando {filter.length} resultados
       </h4>
       {filter.length === 0 && <span className="flex justify-center">Sin resultados.</span>}
       <div className="grid gap-3 p-3 md:gap-10 md:grid-cols-2">
-
         {filter.map((tren) => (
           <div
             className="
@@ -142,7 +126,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         "
             key={tren.id}
           >
-
             <div className="flex justify-between">
               <div className="text-black group-hover:text-white dark:text-slate-300">
                 {tren.options[0].name}
@@ -163,16 +146,13 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 <div className="p-1 text-sm text-white bg-indigo-500 rounded dark:bg-indigo-700">
                   {tren.price}€
                 </div>
-
               </div>
             </div>
-
             <div className="pl-2 border-l-2 border-slate-400 group-hover:border-white">
               <div className="text-sm">{tren.departureStationName}</div>
               <div className="text-sm">{duration(tren.duration)} </div>
               <div className="text-sm">{tren.arrivalStationName}</div>
             </div>
-
             <div className="flex justify-between py-4">
               <div className="flex gap-2 ">
                 <button
@@ -205,7 +185,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             <div className="flex flex-col p-3 text-sm font-bold">
               <span className="text-indigo-700">
                 {insideIdas ? ida.departureStationName : vuelta.departureStationName}
-
               </span>
               <FontAwesomeIcon className="text-indigo-700" icon={faArrowDown} />
               {insideIdas ?
@@ -225,7 +204,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 </div>
                 :
                 <>
-
                   <div className="text-indigo-500 lowercase ">
                     {parada}
                   </div>
@@ -258,12 +236,9 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
               Datos {txt}
             </h3>
-
-
             <div className="flex flex-col p-3 text-sm font-bold">
               <span className="text-indigo-700">
                 {insideIdas ? ida.departureStationName : vuelta.departureStationName}
-
               </span>
               <FontAwesomeIcon className="text-indigo-700" icon={faArrowDown} />
               {insideIdas ?
@@ -271,7 +246,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                   {ida.stops !== 0
                     ?
                     <>
-
                       <div className="text-indigo-500 lowercase ">
                         {parada}
                       </div>
@@ -285,7 +259,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 </div>
                 :
                 <>
-
                   <div className="text-indigo-500 lowercase ">
                     {parada}
                   </div>
@@ -294,7 +267,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
               }
               <span className="text-indigo-300">
                 {insideIdas ? ida.arrivalStationName : vuelta.arrivalStationName}
-
               </span>
             </div>
             <div className="flex flex-col pt-4 text-sm border-t-2 dark:text-slate-400 dark:border-indigo-400 border-slate-100">
@@ -322,6 +294,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                   </tr>
                 </tbody>
               </table>
+           
             </div>
           </div>
           <div className="flex justify-center gap-4">
@@ -331,12 +304,10 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             >
               Cancelar
             </button>
-
           </div>
         </div>
       </Modal>
     </div>
   );
 }
-
 export default Trenes;
