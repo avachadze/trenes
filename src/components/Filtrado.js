@@ -6,12 +6,12 @@ function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
 
     return (
 
-        <div className="m-3 p-3 pb-10  shadow-md bg-gray-100  dark:bg-slate-800 rounded-lg  border-indigo-500 flex flex-col">
+        <div className="flex flex-col p-3 pb-10 m-3 bg-gray-100 border-indigo-500 rounded-lg shadow-md dark:bg-slate-800">
 
-            <h2 className="  text-2xl font-bold mb-2 dark:text-slate-300">Filtrado</h2>
+            <h2 className="mb-2 text-2xl font-bold dark:text-slate-300">Filtrado</h2>
             <div className='grid grid-cols-12'>
                 <select
-                    className="
+                    className=" 
                     col-span-12
                     bg-gray-50 
                     dark:bg-slate-800
@@ -35,23 +35,23 @@ function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
                 </select>
 
 
-                <div className='my-5 col-span-6'>
+                <div className='col-span-6 my-5'>
                     <small className='flex justify-center dark:text-slate-400'>
                         Rango actual:  {values[0]} - {values[1]}€
                     </small>
                     <Slider
                         id="anio"
-                        className="slider dark:bg-slate-600 bg-gray-200 "
+                        className="bg-gray-200 slider dark:bg-slate-600 "
                         onChange={filtradoPrecio}
                         value={values}
                         min={MIN}
                         max={MAX}
                     />
                 </div>
-                <div className='md:col-span-2  col-span-6 flex items-center justify-center mt-4'>
+                <div className='flex items-center justify-center col-span-6 mt-4 md:col-span-2'>
                     <label>
-                        <input onChange={onChange} id='paradas' type="checkbox" className="rounded text-indigo-500 dark:bg-slate-800 dark:border-2 dark:border-primary" />
-                        <span className='dark:text-slate-400 ml-2 '>
+                        <input onChange={onChange} id='paradas' type="checkbox" className="text-indigo-500 rounded dark:bg-slate-800 dark:border-2 dark:border-primary" />
+                        <span className='ml-2 dark:text-slate-400 '>
                             Sin paradas
                         </span>
                     </label>

@@ -11,9 +11,9 @@ function DatosReserva({ precioPorPersona, setPrecio, precio }) {
 
     return (
         <>
-            <input className='dark:bg-slate-800 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-300  p-2 rounded  md:col-span-3 col-span-12' name='nombre' type='text' required placeholder='Nombre' />
-            <input className='dark:bg-slate-800 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-300  p-2 rounded  md:col-span-4 col-span-12' name='apellido' type='text' required placeholder='Apellido' />
-            <input className='dark:bg-slate-800 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-300  p-2 rounded  md:col-span-3 col-span-12' name='DNI' type='text' required placeholder='DNI' />
+            <input className='dark:bg-slate-700 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-500  p-2 rounded  md:col-span-3 col-span-12' name='nombre' type='text' required placeholder='Nombre' />
+            <input className='dark:bg-slate-700 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-500  p-2 rounded  md:col-span-4 col-span-12' name='apellido' type='text' required placeholder='Apellido' />
+            <input className='dark:bg-slate-700 dark:placeholder-slate-500 dark:text-slate-300 outline-none border border-transparent border-b-2 border-b-slate-500  p-2 rounded  md:col-span-3 col-span-12' name='DNI' type='text' required placeholder='DNI' />
            
 
 

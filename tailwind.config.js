@@ -10,11 +10,15 @@ module.exports = ({
 
       colors: {
         'primary': '#6366f1',
+        
       },
+      
     }
   },
   plugins: [
     require('@tailwindcss/forms'),
-    // ...
+    require('tailwindcss-animated')
+
   ],
+  
 })

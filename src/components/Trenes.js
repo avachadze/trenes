@@ -53,7 +53,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
       }));
       setParada(e.segments[0].arrivalPosition.name)
 
-      console.log(e.segments[0].arrivalPosition.name)
     } else {
       setVuelta((prev) => e)
       setVuelta((prev) => ({
@@ -109,11 +108,11 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
 
       <Filtrado onChange={Filter} filtradoPrecio={filtradoPrecio} values={values} MIN={MIN} MAX={MAX} />
 
-      <h4 className="p-3 flex justify-end text-md dark:text-slate-400">
+      <h4 className="flex justify-end p-3 text-md dark:text-slate-400">
         Mostrando {filter.length} resultados
       </h4>
       {filter.length === 0 && <span className="flex justify-center">Sin resultados.</span>}
-      <div className="gap-3 grid md:grid-cols-2  p-3">
+      <div className="grid gap-3 p-3 md:gap-10 md:grid-cols-2">
 
         {filter.map((tren) => (
           <div
@@ -158,17 +157,17 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 >
                   {tren.stops} parada{tren.stops < 1 && "s"}
                 </div>
-                <div className=" text-sm bg-red-400 dark:bg-red-800 rounded text-white p-1 ">
+                <div className="p-1 text-sm text-white bg-red-400 rounded  dark:bg-red-800">
                   {tren.segments[0].companyName}
                 </div>
-                <div className=" text-sm bg-indigo-500 dark:bg-indigo-700 rounded text-white p-1 ">
+                <div className="p-1 text-sm text-white bg-indigo-500 rounded  dark:bg-indigo-700">
                   {tren.price}€
                 </div>
 
               </div>
             </div>
 
-            <div className="border-l-2 border-slate-400 group-hover:border-white pl-2">
+            <div className="pl-2 border-l-2 border-slate-400 group-hover:border-white">
               <div className="text-sm">{tren.departureStationName}</div>
               <div className="text-sm">{duration(tren.duration)} </div>
               <div className="text-sm">{tren.arrivalStationName}</div>
@@ -178,19 +177,18 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
               <div className="flex gap-2 ">
                 <button
                   onClick={() => datosSeleccion(tren)}
-                  className="bg-blue-500 dark:bg-sky-900 font-semibold text-white py-2 px-4  rounded"
+                  className="px-4 py-2 font-semibold text-white bg-blue-500 rounded dark:bg-sky-900"
                 >
                   Detalles
                 </button>
                 <button
                   onClick={() => seleccion(tren)}
-                  className=" bg-green-500 dark:bg-indigo-700  text-white py-2 px-4   rounded"
+                  className="px-4 py-2 text-white bg-green-500 rounded  dark:bg-indigo-700"
                 >
                   Seleccionar
                 </button>
-
               </div>
-              <div className="flex justify-center items-center">
+              <div className="flex items-center justify-center">
                 <img className="h-5" src={tren.carrier[0].logo} alt="logo" />
               </div>
             </div>
@@ -204,9 +202,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
               Reserva {txt}
             </h3>
-
-
-            <div className="text-sm  font-bold flex flex-col p-3">
+            <div className="flex flex-col p-3 text-sm font-bold">
               <span className="text-indigo-700">
                 {insideIdas ? ida.departureStationName : vuelta.departureStationName}
 
@@ -217,17 +213,13 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                   {ida.stops !== 0
                     ?
                     <>
-
                       <div className="text-indigo-500 lowercase ">
                         {parada}
                       </div>
                       <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-
                     </>
                     :
                     <>
-
-
                     </>
                   }
                 </div>
@@ -246,14 +238,14 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
               </span>
             </div>
           </div>
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center gap-4">
             <button
-              className="  bg-slate-500 dark:bg-indigo-700  dark:hover:bg-indigo-800 transition text-white py-2 px-4  rounded"
+              className="px-4 py-2 text-white transition rounded  bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800"
               onClick={() => setOpen(false)}
             >
               Cancelar
             </button>
-            <button className="bg-indigo-500 dark:bg-indigo-700 transition dark:hover:bg-indigo-800 text-white py-2 px-4 rounded" onClick={reservar} >
+            <button className="px-4 py-2 text-white transition bg-indigo-500 rounded dark:bg-indigo-700 dark:hover:bg-indigo-800" onClick={reservar} >
               Seleccionar
             </button>
           </div>
@@ -268,7 +260,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             </h3>
 
 
-            <div className="text-sm  font-bold flex flex-col p-3">
+            <div className="flex flex-col p-3 text-sm font-bold">
               <span className="text-indigo-700">
                 {insideIdas ? ida.departureStationName : vuelta.departureStationName}
 
@@ -288,8 +280,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                     </>
                     :
                     <>
-
-
                     </>
                   }
                 </div>
@@ -307,34 +297,36 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
 
               </span>
             </div>
-            <div className="text-sm border-t-2 dark:text-slate-400 dark:border-indigo-400 pt-4 border-slate-100 flex flex-col">
+            <div className="flex flex-col pt-4 text-sm border-t-2 dark:text-slate-400 dark:border-indigo-400 border-slate-100">
               <table>
-                <tr>
-                  <th className="text-start">Duracion:</th>
-                  <td className="text-start">{insideIdas ? duration(ida.duration) : vuelta.duration}</td>
-                </tr>
-                <tr>
-                  <th className="text-start">Parada(s):</th>
-                  <td className="text-start">{insideIdas ? ida.stops : vuelta.stops}</td>
-                </tr>
-                <tr>
-                  <th className="text-start">Pasajeros:</th>
-                  <td className="text-start">{pasajeros}</td>
-                </tr>
-                <tr>
-                  <th className="text-start">Salida:</th>
-                  <td className="text-start">{insideIdas ? ida.departureTime : vuelta.departureTime} </td>
-                </tr>
-                <tr>
-                  <th className="text-start">llegada:</th>
-                  <td className="text-start"> {insideIdas ? ida.arrivalTime : vuelta.arrivalTime}</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <th className="text-start">Duracion:</th>
+                    <td className="text-start">{insideIdas ? duration(ida.duration) : vuelta.duration}</td>
+                  </tr>
+                  <tr>
+                    <th className="text-start">Parada(s):</th>
+                    <td className="text-start">{insideIdas ? ida.stops : vuelta.stops}</td>
+                  </tr>
+                  <tr>
+                    <th className="text-start">Pasajeros:</th>
+                    <td className="text-start">{pasajeros}</td>
+                  </tr>
+                  <tr>
+                    <th className="text-start">Salida:</th>
+                    <td className="text-start">{insideIdas ? ida.departureTime : vuelta.departureTime} </td>
+                  </tr>
+                  <tr>
+                    <th className="text-start">llegada:</th>
+                    <td className="text-start"> {insideIdas ? ida.arrivalTime : vuelta.arrivalTime}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center gap-4">
             <button
-              className=" bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800 hover:bg-slate-700 transition text-white py-2 px-4  rounded"
+              className="px-4 py-2 text-white transition rounded  bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800 hover:bg-slate-700"
               onClick={() => setModal(false)}
             >
               Cancelar

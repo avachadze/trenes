@@ -36,34 +36,34 @@ function Reserva() {
     }, [precio, total, precioPorPersona, pasajeros]);
 
     return (
-        <div className='px-10 pt-10 flex justify-center flex-col  min-h-[80vh] dark:bg-slate-800'>
-            <div className=' py-10 grid md:grid-cols-12  gap-4 content-between border-y-2 border-dashed  border-slate-200 dark:border-slate-700'>
+        <div className='px-10 pt-10 flex justify-center flex-col  min-h-[80vh] dark:bg-slate-900'>
+            <div className='grid content-between gap-4 py-10 border-dashed md:grid-cols-12 border-y-2 border-slate-200 dark:border-slate-700'>
                 <div className='relative md:col-span-5'>
                     <Tren tren={state[0]} />
                 </div>
-                <div className=' col-span-2  hidden md:flex justify-center items-center flex-col text-indigo-600 dark:text-indigo-500'>
+                <div className='flex-col items-center justify-center hidden col-span-2 text-indigo-600 md:flex dark:text-indigo-500'>
                     <h2 className='text-lg font-bold '>Reserva</h2>
-                    <FontAwesomeIcon className=" text-2xl" icon={faArrowsLeftRight} />
+                    <FontAwesomeIcon className="text-2xl " icon={faArrowsLeftRight} />
                 </div>
                 <div className=' md:col-span-5'>
                     <Tren tren={state[1]} />
                 </div>
             </div>
-            <div className='mt-4  rounded-lg px-5'>
+            <div className='px-5 mt-4 rounded-lg'>
                 <div className='mt-4'>
                     <div className='flex justify-between'>
                         <h3 className='font-semibold dark:text-slate-400'> Datos personales para la reserva {pasajeros > 1 && <span className='text-sm'>({pasajeros})</span>}  </h3>
                     </div>
                 </div>
                 <div>
-                    <form id='formulario' onSubmit={handleSubmit} className='mt-3 grid justify-between md:grid-cols-12 gap-4'>
+                    <form id='formulario' onSubmit={handleSubmit} className='grid justify-between gap-4 mt-3 md:grid-cols-12'>
                         {Array.from(
                             { length: pasajeros },
                             (_, i) =>
                                 <DatosReserva key={i} precioPorPersona={precioPorPersona} setPrecioPorPersona={setPrecioPorPersona} precio={precio} setPrecio={setPrecio} />
                         )}
-                        <div className='py-10 flex md:justify-start col-span-12 justify-end '>
-                            <button className='bg-indigo-500 dark:bg-indigo-700 dark:shadow rounded-full text-white font-semibold shadow-md shadow-indigo-400  p-2 cursor-pointer'> TOTAL: {precio}€</button>
+                        <div className='flex justify-end col-span-12 py-10 md:justify-start '>
+                            <button className='p-2 font-semibold text-white bg-indigo-500 rounded-full shadow-md cursor-pointer dark:bg-indigo-700 dark:shadow shadow-indigo-400'> TOTAL: {precio}€</button>
                         </div>
                     </form>
                 </div>

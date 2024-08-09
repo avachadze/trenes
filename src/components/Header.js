@@ -1,31 +1,55 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Vueltas from './Vueltas'
 import Idas from './Idas'
 import Reserva from './Reserva'
 import DatosFinal from './DatosFinal'
 function Header() {
-    const [dark, setDark] = React.useState(false);
+
+    const [isDark, setDark] = useState();
+    let color = localStorage.getItem("theme");
+   
+    useEffect(() => {
+        if (color === "dark"){
+       setDark(true)
+        }else{
+           
+            setDark(false)
+    
+        }
+        document.body.classList.add(color);
+    }, [color]);
+
+
+
     const darkModeHandler = () => {
-        setDark(!dark);
-        document.body.classList.toggle("dark");
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "light");
+            document.body.classList.remove("dark");
+            setDark(false);
+          } else {
+            localStorage.setItem("theme", "dark");
+            document.body.classList.add("dark");
+            setDark(true);
+          }
     }
+
     return (
         <BrowserRouter>
-            <header className='tren dark:bg-blend-multiply h-[25vh] grid grid-cols-12 shadow-xl  '>
-                <div className='col-span-full flex  justify-center md:justify-end items-center md:pr-10'>
-                    <div>
-                        <h1 className='text-white text-center underline decoration-wavy decoration-2 '>
+            <header className='tren dark:bg-blend-multiply h-[25vh] grid grid-cols-12 shadow-xl '>
+                <div className='flex items-center justify-center col-span-full md:justify-end md:pr-10'>
+                    <div className='flex flex-row justify-between w-full px-4 md:block md:w-fit'>
+                        <h1 className='text-center text-white underline decoration-wavy decoration-2 '>
                             Dit Gestion
                         </h1>
-                        <label class="inline-flex items-center cursor-pointer w-full justify-end">
-                            <input onChange={() => darkModeHandler()} type="checkbox" class="switch__input" id="Switch" />
-                            <label class="switch__label" for="Switch">
-                                <span class="switch__indicator"></span>
-                                <span class="switch__decoration"></span>
+                            <label className="inline-flex items-center justify-end cursor-pointer md:w-full">
+                                <input onChange={() => darkModeHandler()} type="checkbox" checked={isDark ? 'checked' : ''} className="switch__input" id="Switch" />
+                                <label className="switch__label" htmlFor="Switch">
+                                    <span className="switch__indicator"></span>
+                                    <span className="switch__decoration"></span>
+                                </label>
                             </label>
-                        </label>
-                    </div>
+                        </div>
                 </div>
             </header>
             <Routes>
