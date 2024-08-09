@@ -51,26 +51,26 @@ function Tren({ tren }) {
                         >
                             {tren.stops} parada{tren.stops < 1 && "s"}
                         </div>
-                        <div className=" text-sm bg-red-400 dark:bg-orange-600 rounded text-white p-1 cursor-pointer">
+                        <div className="p-1 text-sm text-white bg-red-400 rounded cursor-pointer  dark:bg-orange-600">
                             {tren.segments[0].companyName}
                         </div>
-                        <div className=" text-sm bg-indigo-500 dark:bg-indigo-700 rounded text-white p-1 cursor-pointer">
+                        <div className="p-1 text-sm text-white bg-indigo-500 rounded cursor-pointer  dark:bg-indigo-700">
                             {tren.price}€
                         </div>
                     </div>
 
 
                 </div>
-                <div className="border-l-2 border-slate-400 group-hover:border-white pl-2 mb-3">
+                <div className="pl-2 mb-3 border-l-2 border-slate-400 group-hover:border-white">
                     <div className="text-sm">{tren.departureStationName}</div>
                     <div className="text-sm">{duration(tren.duration)} </div>
                     <div className="text-sm">{tren.arrivalStationName}</div>
                 </div>
                 <span className='text-sm text-orange-500'>Salida: {departure.slice(-5)} </span>
                 <span className='text-sm text-indigo-600 dark:text-indigo-400'>Llegada: {arrival.slice(-5)}</span>
-                <div className="flex gap-1 justify-end">
+                <div className="flex justify-end gap-1">
 
-                    <div className="text-sm cursor-pointer bg-indigo-500 dark:bg-indigo-700 rounded text-white p-1 ">
+                    <div className="p-1 text-sm text-white bg-indigo-500 rounded cursor-pointer dark:bg-indigo-700 ">
                         X{pasajeros}
                     </div>
 

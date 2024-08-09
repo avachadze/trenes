@@ -157,10 +157,10 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 >
                   {tren.stops} parada{tren.stops < 1 && "s"}
                 </div>
-                <div className="p-1 text-sm text-white bg-red-400 rounded  dark:bg-red-800">
+                <div className="p-1 text-sm text-white bg-red-400 rounded dark:bg-red-800">
                   {tren.segments[0].companyName}
                 </div>
-                <div className="p-1 text-sm text-white bg-indigo-500 rounded  dark:bg-indigo-700">
+                <div className="p-1 text-sm text-white bg-indigo-500 rounded dark:bg-indigo-700">
                   {tren.price}€
                 </div>
 
@@ -183,7 +183,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 </button>
                 <button
                   onClick={() => seleccion(tren)}
-                  className="px-4 py-2 text-white bg-green-500 rounded  dark:bg-indigo-700"
+                  className="px-4 py-2 text-white bg-green-500 rounded dark:bg-indigo-700"
                 >
                   Seleccionar
                 </button>
@@ -240,7 +240,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           </div>
           <div className="flex justify-center gap-4">
             <button
-              className="px-4 py-2 text-white transition rounded  bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800"
+              className="px-4 py-2 text-white transition rounded bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800"
               onClick={() => setOpen(false)}
             >
               Cancelar
@@ -326,7 +326,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           </div>
           <div className="flex justify-center gap-4">
             <button
-              className="px-4 py-2 text-white transition rounded  bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800 hover:bg-slate-700"
+              className="px-4 py-2 text-white transition rounded bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800 hover:bg-slate-700"
               onClick={() => setModal(false)}
             >
               Cancelar
