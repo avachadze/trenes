@@ -4,25 +4,27 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import Filtrado from "./Filtrado";
 import Modal from "./Modal";
 import { useNavigate } from 'react-router-dom';
+import Leaflet from "./Leaflet";
 
 function Trenes({ txt, datos, insideIdas, idaR }) {
+  const [active, setActive] = useState(null)
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [ida, setIda] = useState([]);
-  const [vuelta, setVuelta] = useState([]);
+  const [ida] = useState([]);
+  const [vuelta] = useState([]);
   const [filter, setFilter] = useState([]);
   const navigate = useNavigate();
   const [reserva] = useState([]);
-  const [pasajeros, setPasajeros] = useState();
   const checkParadas = document.getElementById('paradas');
   const checkCarrier = document.getElementById('carrier');
   const MIN = 0;
   const MAX = 200;
   const [values, setValues] = useState([MIN, MAX]);
-  const [parada, setParada] = useState();
+
   useEffect(() => {
     setFilter(datos);
   }, [datos]);
+
   function duration(e) {
     let hours = Math.floor(e / 60);
     let minutes = e % 60;
@@ -30,36 +32,11 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   }
   function seleccion(e) {
     setOpen((prev) => true);
-    setSeleccionado(e)
   }
   function datosSeleccion(e) {
     setModal((prev) => true);
-    setSeleccionado(e)
   }
-  function setSeleccionado(e) {
-    if (insideIdas) {
-      setIda((prev) => e);
-      setIda((prev) => ({
-        ...prev,
-        arrivalStationName: e.arrivalStationName.toString().toLowerCase(),
-        departureStationName: e.departureStationName.toString().toLowerCase(),
-        arrivalTime: e.arrivalTime.slice(-5),
-        departureTime: e.departureTime.slice(-5),
-      }));
-      setParada(e.segments[0].arrivalPosition.name)
-    } else {
-      setVuelta((prev) => e)
-      setVuelta((prev) => ({
-        ...prev,
-        arrivalStationName: e.arrivalStationName.toString().toLowerCase(),
-        departureStationName: e.departureStationName.toString().toLowerCase(),
-        arrivalTime: e.arrivalTime.slice(-5),
-        departureTime: e.departureTime.slice(-5),
-      }));
-      setParada(e.segments[0].arrivalPosition.name)
-    }
-    setPasajeros(e.searchSummary.totalPassengers)
-  }
+
   function checkIfStops(f) {
     if (checkParadas.checked && f.stops === 0) {
       return true
@@ -116,7 +93,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             transition ease-in-out delay-70  hover:-translate-y-1 hover:scale-100  duration-200
             min-h-[100px]
             bg-gray-100
-           
             hover:bg-indigo-400
             hover:border-indigo-700
             hover:text-white
@@ -156,17 +132,36 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
             <div className="flex justify-between py-4">
               <div className="flex gap-2 ">
                 <button
-                  onClick={() => datosSeleccion(tren)}
+                  onClick={() => {
+                    datosSeleccion(tren)
+                    setActive(tren)
+                    setActive((prev) => ({
+                      ...prev,
+
+                      arrivalTime: tren.arrivalTime.slice(-5),
+                      departureTime: tren.departureTime.slice(-5),
+                    }));
+                  }}
                   className="px-4 py-2 font-semibold text-white bg-blue-500 rounded dark:bg-sky-900"
                 >
                   Detalles
                 </button>
                 <button
-                  onClick={() => seleccion(tren)}
+                  onClick={() => {
+                    seleccion(tren)
+                    setActive(tren)
+                    setActive((prev) => ({
+                      ...prev,
+
+                      arrivalTime: tren.arrivalTime.slice(-5),
+                      departureTime: tren.departureTime.slice(-5),
+                    }));
+                  }}
                   className="px-4 py-2 text-white bg-green-500 rounded dark:bg-indigo-700"
                 >
                   Seleccionar
                 </button>
+
               </div>
               <div className="flex items-center justify-center">
                 <img className="h-5" src={tren.carrier[0].logo} alt="logo" />
@@ -176,43 +171,40 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         ))}
       </div>
       {/* modal de reserva */}
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={open} onClose={() => {
+        setOpen(false)
+        setActive(null)
+      }}>
         <div className="text-center w-[400px]  flex flex-col justify-between">
-          <div className="mx-auto my-4">
+          <div className="mx-5 my-4">
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
               Reserva {txt}
             </h3>
             <div className="flex flex-col p-3 text-sm font-bold">
-              <span className="text-indigo-700">
-                {insideIdas ? ida.departureStationName : vuelta.departureStationName}
+              <span className="text-indigo-700 lowercase">
+
+                {active && active.departureStationName}
+
               </span>
               <FontAwesomeIcon className="text-indigo-700" icon={faArrowDown} />
-              {insideIdas ?
-                <div>
-                  {ida.stops !== 0
-                    ?
-                    <>
-                      <div className="text-indigo-500 lowercase ">
-                        {parada}
-                      </div>
-                      <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-                    </>
-                    :
-                    <>
-                    </>
-                  }
-                </div>
-                :
-                <>
-                  <div className="text-indigo-500 lowercase ">
-                    {parada}
-                  </div>
-                  <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-                </>
-              }
-              <span className="text-indigo-300">
-                {insideIdas ? ida.arrivalStationName : vuelta.arrivalStationName}
 
+              <div>
+                {active && active.stops !== 0
+                  ?
+                  <>
+                    <div className="text-indigo-500 lowercase ">
+                      {active && active.segments[0].arrivalPosition.name}
+                    </div>
+                    <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
+
+                  </>
+                  :
+                  <>
+                  </>
+                }
+              </div>
+              <span className="text-indigo-300">
+                {active && active.arrivalStationName}
               </span>
             </div>
           </div>
@@ -230,43 +222,42 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         </div>
       </Modal>
       {/* Modal de más detalles */}
-      <Modal open={modal} onClose={() => setModal(false)}>
+      <Modal open={modal} onClose={() => {
+        setModal(false)
+        setActive(null)
+      }}>
         <div className="text-center  w-[400px]  flex flex-col justify-between">
-          <div className="mx-auto my-4">
+          <div className="mx-5 my-4">
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
-              Datos {txt}
+              Datos {txt} a
             </h3>
             <div className="flex flex-col p-3 text-sm font-bold">
-              <span className="text-indigo-700">
-                {insideIdas ? ida.departureStationName : vuelta.departureStationName}
+              <span className="text-indigo-700 lowercase">
+
+                {active && active.departureStationName}
+
               </span>
               <FontAwesomeIcon className="text-indigo-700" icon={faArrowDown} />
-              {insideIdas ?
-                <div>
-                  {ida.stops !== 0
-                    ?
-                    <>
-                      <div className="text-indigo-500 lowercase ">
-                        {parada}
-                      </div>
-                      <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
 
-                    </>
-                    :
-                    <>
-                    </>
-                  }
-                </div>
-                :
-                <>
-                  <div className="text-indigo-500 lowercase ">
-                    {parada}
-                  </div>
-                  <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-                </>
-              }
+              <div>
+                {active && active.stops !== 0
+                  ?
+                  <>
+                    <div className="text-indigo-500 lowercase ">
+                      {active && active.segments[0].arrivalPosition.name}
+                    </div>
+                    <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
+
+                  </>
+                  :
+                  <>
+                  </>
+                }
+              </div>
+
+
               <span className="text-indigo-300">
-                {insideIdas ? ida.arrivalStationName : vuelta.arrivalStationName}
+                {active && active.arrivalStationName}
               </span>
             </div>
             <div className="flex flex-col pt-4 text-sm border-t-2 dark:text-slate-400 dark:border-indigo-400 border-slate-100">
@@ -274,27 +265,32 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 <tbody>
                   <tr>
                     <th className="text-start">Duracion:</th>
-                    <td className="text-start">{insideIdas ? duration(ida.duration) : vuelta.duration}</td>
+                    <td className="text-start">{active && active.duration} </td>
                   </tr>
                   <tr>
                     <th className="text-start">Parada(s):</th>
-                    <td className="text-start">{insideIdas ? ida.stops : vuelta.stops}</td>
+                    <td className="text-start">{active && active.stops}</td>
                   </tr>
                   <tr>
                     <th className="text-start">Pasajeros:</th>
-                    <td className="text-start">{pasajeros}</td>
+                    <td className="text-start">{active && active.searchSummary.totalPassengers}</td>
                   </tr>
                   <tr>
                     <th className="text-start">Salida:</th>
-                    <td className="text-start">{insideIdas ? ida.departureTime : vuelta.departureTime} </td>
+
+                    <td className="text-start">{active && active.departureTime}</td>
                   </tr>
                   <tr>
                     <th className="text-start">llegada:</th>
-                    <td className="text-start"> {insideIdas ? ida.arrivalTime : vuelta.arrivalTime}</td>
+                    <td className="text-start"> {active && active.arrivalTime}</td>
                   </tr>
                 </tbody>
               </table>
-           
+              {active &&
+                <div className="mt-5 leaflet-container">
+                  <Leaflet tren={active && active.segments} stops={active && active.stops} />
+                </div>
+              }
             </div>
           </div>
           <div className="flex justify-center gap-4">
