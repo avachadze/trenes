@@ -175,7 +175,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
         setOpen(false)
         setActive(null)
       }}>
-        <div className="text-center w-[400px]  flex flex-col justify-between">
+        <div className="text-center md:w-[400px]  w-[80vw]  flex flex-col justify-between">
           <div className="mx-5 my-4">
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
               Reserva {txt}
@@ -221,17 +221,17 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           </div>
         </div>
       </Modal>
-      {/* Modal de más detalles */}
+
       <Modal open={modal} onClose={() => {
         setModal(false)
         setActive(null)
       }}>
-        <div className="text-center  w-[400px]  flex flex-col justify-between">
+        <div className="text-center  w-[80vw] md:w-[600px]  flex flex-col justify-between">
           <div className="mx-5 my-4">
             <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
               Datos {txt} a
             </h3>
-            <div className="flex flex-col p-3 text-sm font-bold">
+            <div className="flex flex-col p-3 text-sm font-bold border-b-2 dark:border-indigo-400">
               <span className="text-indigo-700 lowercase">
 
                 {active && active.departureStationName}
@@ -247,21 +247,18 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                       {active && active.segments[0].arrivalPosition.name}
                     </div>
                     <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-
                   </>
                   :
                   <>
                   </>
                 }
               </div>
-
-
               <span className="text-indigo-300">
                 {active && active.arrivalStationName}
               </span>
             </div>
-            <div className="flex flex-col pt-4 text-sm border-t-2 dark:text-slate-400 dark:border-indigo-400 border-slate-100">
-              <table>
+            <div className="flex flex-col p-5 mt-3 text-sm rounded dark:text-slate-400 border-slate-100">
+              <table className="">
                 <tbody>
                   <tr>
                     <th className="text-start">Duracion:</th>
@@ -286,12 +283,12 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                   </tr>
                 </tbody>
               </table>
-              {active &&
-                <div className="mt-5 leaflet-container">
-                  <Leaflet tren={active && active.segments} stops={active && active.stops} />
-                </div>
-              }
             </div>
+            {active &&
+              <div className="my-5 rounded h-[250px] w-[100%] shadow-lg dark:border-2 dark:border-indigo-300 dark:shadow dark:shadow-indigo-600 leaflet-container">
+                <Leaflet tren={active && active.segments} stops={active && active.stops} />
+              </div>
+            }
           </div>
           <div className="flex justify-center gap-4">
             <button

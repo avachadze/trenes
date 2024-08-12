@@ -1,21 +1,30 @@
 import React from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
 import { Icon } from "leaflet"
-
+import L from 'leaflet'
+import { Polyline } from 'react-leaflet'
 const iconoTren = new Icon({
     iconUrl: require('../assets/icon.png'),
-    iconSize: [35, 35]
+    iconSize: [38, 35],
+    iconAnchor: [22, 35],
+    popupAnchor: [-3, -76]
 })
-
+const limeOptions = { color: '#6366f1' }
+console.log(L)
 function Mapa({ tren, stops }) {
+
+
     let seleccion = null;
     let parada = null;
     let arrival = null;
-
+    var latlngs;
     if (stops === 0) {
         seleccion = tren
         arrival = seleccion[0].arrivalPosition;
-        console.log("departure")
+        latlngs = [
+            [seleccion[0].departurePosition.latitude, seleccion[0].departurePosition.longitude],
+            [arrival.latitude, arrival.longitude],
+        ];
 
     }
     else {
@@ -23,13 +32,17 @@ function Mapa({ tren, stops }) {
         console.log(seleccion)
         parada = seleccion[0].arrivalPosition
         arrival = seleccion[2].arrivalPosition;
-        console.log("a buscar")
+        latlngs = [
+            [seleccion[0].departurePosition.latitude, seleccion[0].departurePosition.longitude],
+            [parada.latitude, parada.longitude],
+            [arrival.latitude, arrival.longitude]
+        ];
     }
-
 
     return (
         <>
             <MapContainer center={[40.4721436, -3.6825451]} zoom={5} scrollWheelZoom={false}>
+                <Polyline pathOptions={limeOptions} positions={latlngs} />
                 <TileLayer
                     attribution='Dit Gestion'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
