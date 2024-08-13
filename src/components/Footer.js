@@ -1,6 +1,4 @@
 import React from 'react'
-
-
 import { FaFacebookF } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import { FaTrainSubway } from "react-icons/fa6";
@@ -18,12 +16,12 @@ function Footer() {
                     <FaTrainSubway />
                 </span>
                 <ul className='flex justify-end gap-1'>
-                    <li className='bg-blue-900 rounded-full text-white w-[25px] h-[25px] flex justify-center items-center hover:scale-125 transition'>
+                    <li className='bg-blue-900 rounded-full animate-bounce animate-infinite animate-delay-[300ms] text-white w-[25px] h-[25px] flex justify-center items-center hover:scale-125 transition'>
                         <a target='_blank' rel="noreferrer" href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_ES">
                             <FaFacebookF />
                         </a>
                     </li>
-                    <li className='bg-black dark:bg-white dark:text-black rounded-full  text-white w-[25px] h-[25px] flex justify-center items-center hover:scale-125 transition'>
+                    <li className='animate-bounce animate-infinite bg-black dark:bg-white dark:text-black rounded-full  text-white w-[25px] h-[25px] flex justify-center items-center hover:scale-125 transition'>
                         <a target='_blank' rel="noreferrer" href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_ES">
                             <BsTwitterX />
                         </a>
@@ -33,6 +31,11 @@ function Footer() {
             <div className='flex flex-col w-full p-3 px-10 text-sm text-center md:justify-between md:flex-row md:text-start text-slate-500 md:gap-6'>
                 <ul>
                     <li>
+                        <a href='/'>
+                            Aviso Legal
+                        </a>
+                    </li>
+                    <li>
                         Tel: 953 49 30 28
                     </li>
                     <li>
@@ -40,6 +43,11 @@ function Footer() {
                     </li>
                 </ul>
                 <ul>
+                    <li>
+                        <a href='/'>
+                            Contacto
+                        </a>
+                    </li>
                     <li>
                         Dirección: Astigarrako Bidea, 2, 5 derecha, 20180, Gipuzkoa
                     </li>

@@ -10,8 +10,8 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
   const [active, setActive] = useState(null)
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
-  const [ida] = useState([]);
-  const [vuelta] = useState([]);
+  const [ida, setIda] = useState([]);
+  const [vuelta, setVuelta] = useState([]);
   const [filter, setFilter] = useState([]);
   const navigate = useNavigate();
   const [reserva] = useState([]);
@@ -23,7 +23,19 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
 
   useEffect(() => {
     setFilter(datos);
-  }, [datos]);
+    if (active) {
+      console.log(active.options[0].features.length)
+
+    }
+    /*  if (active.options[0] && active.options[0].features.id === "CANC") {
+       console.log("cancelacion")
+     } else if (active.options[1] && active.options[1].features.id === "MAL") {
+       console.log("maleta")
+     } else {
+       console.log("nada")
+     } */
+
+  }, [datos, active]);
 
   function duration(e) {
     let hours = Math.floor(e / 60);
@@ -31,10 +43,35 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
     return hours + "h " + minutes + "min";
   }
   function seleccion(e) {
+    setActive(e)
+    setActive((prev) => ({
+      ...prev,
+      arrivalTime: e.arrivalTime.slice(-5),
+      departureTime: e.departureTime.slice(-5),
+    }));
     setOpen((prev) => true);
+    setSeleccionado(e)
+
   }
   function datosSeleccion(e) {
+    setActive(e)
+    setActive((prev) => ({
+      ...prev,
+      arrivalTime: e.arrivalTime.slice(-5),
+      departureTime: e.departureTime.slice(-5),
+    }));
     setModal((prev) => true);
+    setSeleccionado(e)
+  }
+
+  function setSeleccionado(e) {
+
+    if (insideIdas) {
+      setIda((prev) => e);
+    } else {
+      setVuelta((prev) => e)
+    }
+
   }
 
   function checkIfStops(f) {
@@ -134,13 +171,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 <button
                   onClick={() => {
                     datosSeleccion(tren)
-                    setActive(tren)
-                    setActive((prev) => ({
-                      ...prev,
 
-                      arrivalTime: tren.arrivalTime.slice(-5),
-                      departureTime: tren.departureTime.slice(-5),
-                    }));
                   }}
                   className="px-4 py-2 font-semibold text-white bg-blue-500 rounded dark:bg-sky-900"
                 >
@@ -149,13 +180,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 <button
                   onClick={() => {
                     seleccion(tren)
-                    setActive(tren)
-                    setActive((prev) => ({
-                      ...prev,
 
-                      arrivalTime: tren.arrivalTime.slice(-5),
-                      departureTime: tren.departureTime.slice(-5),
-                    }));
                   }}
                   className="px-4 py-2 text-white bg-green-500 rounded dark:bg-indigo-700"
                 >
@@ -177,17 +202,14 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
       }}>
         <div className="text-center md:w-[400px]  w-[80vw]  flex flex-col justify-between">
           <div className="mx-5 my-4">
-            <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
+            <h3 className="text-2xl font-black text-slate-800 dark:text-indigo-400">
               Reserva {txt}
             </h3>
-            <div className="flex flex-col p-3 text-sm font-bold">
+            <div className="flex flex-col p-3 text-md lowercase font-bold">
               <span className="text-indigo-700 lowercase">
-
                 {active && active.departureStationName}
-
               </span>
               <FontAwesomeIcon className="text-indigo-700" icon={faArrowDown} />
-
               <div>
                 {active && active.stops !== 0
                   ?
@@ -196,7 +218,6 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                       {active && active.segments[0].arrivalPosition.name}
                     </div>
                     <FontAwesomeIcon className="text-indigo-600" icon={faArrowDown} />
-
                   </>
                   :
                   <>
@@ -211,8 +232,7 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           <div className="flex justify-center gap-4">
             <button
               className="px-4 py-2 text-white transition rounded bg-slate-500 dark:bg-indigo-700 dark:hover:bg-indigo-800"
-              onClick={() => setOpen(false)}
-            >
+              onClick={() => setOpen(false)}>
               Cancelar
             </button>
             <button className="px-4 py-2 text-white transition bg-indigo-500 rounded dark:bg-indigo-700 dark:hover:bg-indigo-800" onClick={reservar} >
@@ -221,17 +241,16 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
           </div>
         </div>
       </Modal>
-
       <Modal open={modal} onClose={() => {
         setModal(false)
         setActive(null)
       }}>
         <div className="text-center  w-[80vw] md:w-[600px]  flex flex-col justify-between">
           <div className="mx-5 my-4">
-            <h3 className="text-lg font-black text-slate-800 dark:text-indigo-400">
-              Datos {txt} a
+            <h3 className="text-2xl font-black text-slate-800 dark:text-indigo-400">
+              Datos {txt}
             </h3>
-            <div className="flex flex-col p-3 text-sm font-bold border-b-2 dark:border-indigo-400">
+            <div className="flex flex-col p-3 text-md lowercase font-bold border-b-2 dark:border-indigo-400">
               <span className="text-indigo-700 lowercase">
 
                 {active && active.departureStationName}
@@ -257,35 +276,28 @@ function Trenes({ txt, datos, insideIdas, idaR }) {
                 {active && active.arrivalStationName}
               </span>
             </div>
-            <div className="flex flex-col p-5 mt-3 text-sm rounded dark:text-slate-400 border-slate-100">
-              <table className="">
-                <tbody>
-                  <tr>
-                    <th className="text-start">Duracion:</th>
-                    <td className="text-start">{active && active.duration} </td>
-                  </tr>
-                  <tr>
-                    <th className="text-start">Parada(s):</th>
-                    <td className="text-start">{active && active.stops}</td>
-                  </tr>
-                  <tr>
-                    <th className="text-start">Pasajeros:</th>
-                    <td className="text-start">{active && active.searchSummary.totalPassengers}</td>
-                  </tr>
-                  <tr>
-                    <th className="text-start">Salida:</th>
-
-                    <td className="text-start">{active && active.departureTime}</td>
-                  </tr>
-                  <tr>
-                    <th className="text-start">llegada:</th>
-                    <td className="text-start"> {active && active.arrivalTime}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="grid grid-cols-3 gap-3 mt-3 text-start dark:text-white">
+              <div className="p-3 text-center bg-indigo-200 rounded shadow dark:bg-indigo-900 ">
+                <b>Duracion:</b>  {active && duration(active.duration)}
+              </div>
+              <div className="p-3 text-center bg-indigo-300 rounded shadow dark:bg-indigo-800 ">
+                <b>Parada(s):</b>  {active && active.stops}
+              </div>
+              <div className="p-3 text-center bg-indigo-400 rounded shadow dark:bg-indigo-700 " >
+                <b>Pasajeros:</b> {active && active.searchSummary.totalPassengers}
+              </div>
+              <div className="p-3 text-center bg-gray-400 rounded shadow dark:bg-cyan-900 ">
+                <b>Salida:</b> {active && active.departureTime}
+              </div>
+              <div className="p-3 text-center bg-gray-300 rounded shadow dark:bg-cyan-800 ">
+                <b>llegada:</b> {active && active.arrivalTime}
+              </div>
+              <div className="p-3 text-center bg-gray-200 rounded shadow dark:bg-cyan-700 ">
+                <b>Precio:</b> {active && active.price}€
+              </div>
             </div>
             {active &&
-              <div className="my-5 rounded h-[250px] w-[100%] shadow-lg dark:border-2 dark:border-indigo-300 dark:shadow dark:shadow-indigo-600 leaflet-container">
+              <div className="my-5 dark:brightness-90  rounded w-[100%] shadow-lg dark:border-2 dark:border-indigo-300 dark:shadow  dark:shadow-indigo-600 leaflet-container">
                 <Leaflet tren={active && active.segments} stops={active && active.stops} />
               </div>
             }

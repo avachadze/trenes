@@ -1,7 +1,7 @@
 import React from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+
 import { Icon } from "leaflet"
-import L from 'leaflet'
 import { Polyline } from 'react-leaflet'
 const iconoTren = new Icon({
     iconUrl: require('../assets/icon.png'),
@@ -9,11 +9,8 @@ const iconoTren = new Icon({
     iconAnchor: [22, 35],
     popupAnchor: [-3, -76]
 })
-const limeOptions = { color: '#6366f1' }
-console.log(L)
+const colorLinea = { color: '#6366f1' }
 function Mapa({ tren, stops }) {
-
-
     let seleccion = null;
     let parada = null;
     let arrival = null;
@@ -25,11 +22,9 @@ function Mapa({ tren, stops }) {
             [seleccion[0].departurePosition.latitude, seleccion[0].departurePosition.longitude],
             [arrival.latitude, arrival.longitude],
         ];
-
     }
     else {
         seleccion = tren
-        console.log(seleccion)
         parada = seleccion[0].arrivalPosition
         arrival = seleccion[2].arrivalPosition;
         latlngs = [
@@ -41,8 +36,8 @@ function Mapa({ tren, stops }) {
 
     return (
         <>
-            <MapContainer center={[40.4721436, -3.6825451]} zoom={5} scrollWheelZoom={false}>
-                <Polyline pathOptions={limeOptions} positions={latlngs} />
+            <MapContainer center={[40.3260685, -4.8379791]} zoom={5} scrollWheelZoom={false}>
+                <Polyline pathOptions={colorLinea} positions={latlngs} />
                 <TileLayer
                     attribution='Dit Gestion'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -51,34 +46,43 @@ function Mapa({ tren, stops }) {
                     icon={iconoTren}
                     position={[seleccion[0].departurePosition.latitude, seleccion[0].departurePosition.longitude]}>
                     <Popup>
-
-                        <div className='lowercase'>
-                            {seleccion[0].departurePosition.name}
+                        <div className='flex flex-col lowercase'>
+                            <span className='text-lg text-center'>
+                                Salida
+                            </span>
+                            <span>
+                                {seleccion[0].departurePosition.name}
+                            </span>
                         </div>
                     </Popup>
-
                 </Marker>
-
                 {parada && <Marker icon={iconoTren} position={[parada.latitude, parada.longitude]}>
                     <Popup>
-                        <div className='lowercase'>
-                            {parada.name}
+                        <div className='flex flex-col lowercase'>
+                            <span className='text-lg text-center'>
+                                Parada
+                            </span>
+
+                            <span>
+                                {parada.name}
+                            </span>
                         </div>
                     </Popup>
                 </Marker>}
-
-
                 {arrival && <Marker icon={iconoTren} position={[arrival.latitude, arrival.longitude]}>
                     <Popup>
-                        <div className='lowercase'>
-                            {arrival.name}
+                        <div className='flex flex-col lowercase'>
+                            <span className='text-lg text-center'>
+                                Llegada
+                            </span>
+                            <span>
+                                {arrival.name}
+                            </span>
                         </div>
                     </Popup>
                 </Marker>}
             </MapContainer>
-
         </>
     )
 }
-
 export default Mapa

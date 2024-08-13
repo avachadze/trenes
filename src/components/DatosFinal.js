@@ -8,14 +8,13 @@ function DatosFinal() {
     const { state } = useLocation();
     const datos = state;
     const pasajeros = [];
-        useEffect(() => {
-            window.scrollTo(0, 0);
-        }, [])
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     for (let i = 0; i < datos.length; i++) {
         pasajeros.push({ nombre: datos.nombres[i], apellidos: datos.apellidos[i], DNI: datos.DNI[i] })
     }
     function shake(e) {
-        console.log(e.target)
         e.target.classList.add('animate-shake')
         setTimeout(() => {
             e.target.classList.remove('animate-shake');
@@ -57,8 +56,8 @@ function DatosFinal() {
                     Págo express
                 </h3>
                 <div className='flex flex-col items-center gap-4 mt-5 mb-10 md:flex-row'>
-                    <button onClick={shake} className='animate-twice animate-duration-300 animate-normal h-[44px] hover:bg-yellow-500 bg-yellow-400 font-semibold p-2  w-full md:w-[240px] flex items-center gap-2 shadow-2xl rounded border-2 border-yellow-500'>
-                        Compra segura con
+                    <button onClick={shake} className='animate-twice animate-duration-300 animate-normal h-[44px] hover:bg-yellow-500 bg-yellow-400 font-semibold p-2  w-full md:w-fit flex items-center gap-2 shadow-2xl rounded border-2 border-yellow-500'>
+                        Compra con
                         <img src={require('../assets/paypal.png')} alt='img' className='h-[15px] mt-1' />
                     </button>
                     <button onClick={shake} className='animate-twice animate-duration-300 animate-normal h-[44px] p-2 w-full md:w-[100px] flex font-semibold text-cyan-500 items-center gap-2  shadow-2xl rounded border-2 border-cyan-500'>

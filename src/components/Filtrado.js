@@ -3,11 +3,17 @@ import React from 'react'
 import Slider from 'react-slider'
 
 function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
-
+    const carrier = [
+        "AVLO",
+        "AVE",
+        "AVE INT",
+        "EUROMED",
+        "Intercit",
+        "MD",
+        "REG.EXP."
+    ]
     return (
-
         <div className="flex flex-col p-3 pb-10 m-3 bg-gray-100 border-indigo-500 rounded-lg shadow-md dark:bg-slate-800">
-
             <h2 className="mb-2 text-2xl font-bold dark:text-slate-300">Filtrado</h2>
             <div className='grid grid-cols-12'>
                 <select
@@ -25,16 +31,12 @@ function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
                     id='carrier'
                 >
                     <option value="">Elige tu carrier</option>
-                    <option value="AVLO">AVLO</option>
-                    <option value="AVE">Ave</option>
-                    <option value="AVE INT">AVE INT</option>
-                    <option value="EUROMED">EUROMED</option>
-                    <option value="Intercit">Intercit</option>
-                    <option value="MD">MD</option>
-                    <option value="REG.EXP.">REG.EXP.</option>
+
+                    {carrier.map((carrier) => (
+                        <option value={carrier}>{carrier}</option>
+                    ))}
+
                 </select>
-
-
                 <div className='col-span-6 my-5'>
                     <small className='flex justify-center dark:text-slate-400'>
                         Rango actual:  {values[0]} - {values[1]}€
@@ -58,8 +60,6 @@ function Filtrado({ onChange, filtradoPrecio, values, MIN, MAX }) {
                 </div>
             </div>
         </div>
-
     )
 }
-
 export default Filtrado

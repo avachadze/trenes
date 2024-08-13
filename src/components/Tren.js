@@ -1,5 +1,4 @@
 import React from 'react'
-
 function Tren({ tren }) {
     let arrival = tren.arrivalTime
     let departure = tren.departureTime
@@ -35,7 +34,7 @@ function Tren({ tren }) {
             dark:hover:text-slate-300
              dark:bg-slate-800
             text-slate-400
-        "
+            "
             >
                 <div className="flex justify-between">
                     <div className="text-black group-hover:text-white dark:text-slate-300">
@@ -58,8 +57,6 @@ function Tren({ tren }) {
                             {tren.price}€
                         </div>
                     </div>
-
-
                 </div>
                 <div className="pl-2 mb-3 border-l-2 border-slate-400 group-hover:border-white">
                     <div className="text-sm">{tren.departureStationName}</div>

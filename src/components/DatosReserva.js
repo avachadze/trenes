@@ -21,7 +21,7 @@ function DatosReserva({ precioPorPersona, setPrecio, precio }) {
                     {precioMostrar}€
                 </span>
             </div>
-        </> 
+        </>
     )
 }
 

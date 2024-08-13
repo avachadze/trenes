@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Vueltas from './Vueltas'
 import Idas from './Idas'
 import Reserva from './Reserva'
@@ -43,10 +43,14 @@ function Header() {
                         </label>
                     </div>
                 </div>
+                <Link className="actual" to="contacto">
+                    Contacto
+                </Link>
             </header>
             <Routes>
                 <Route index element={<Idas />}></Route>
                 <Route path='vueltas' element={<Vueltas />}></Route>
+                <Route path='idas' element={<Vueltas />}></Route>
                 <Route path='reserva' element={<Reserva />}></Route>
                 <Route path='datos' element={<DatosFinal />}></Route>
             </Routes>

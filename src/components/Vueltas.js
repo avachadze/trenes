@@ -5,9 +5,6 @@ import { useLocation } from 'react-router-dom';
 function Vueltas() {
   const datos = data.vueltas;
   const { state } = useLocation();
-
-
-
   return (
     <>
       <Trenes txt="vuelta" datos={datos} insideIdas={false} idaR={state} />
